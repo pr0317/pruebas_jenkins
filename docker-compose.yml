@@ -1,0 +1,15 @@
+version: '3'
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "4000:3000"  # Puerto externo 4000, interno 3000
+    volumes:
+      - ./backend/notas.json:/app/notas.json
+
+  frontend:
+    image: nginx:alpine
+    ports:
+      - "8088:80"  # Puerto externo 8088, interno 80
+    volumes:
+      - ./frontend:/usr/share/nginx/html
