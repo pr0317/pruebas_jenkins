@@ -6,12 +6,6 @@ pipeline {
     }
 
     stages {
-        stage('Clonar código') {
-            steps {
-                bat 'git clone https://github.com/MariaFernandaFernandez/nuevo_backend_bloc-de-notas.git .'
-            }
-        }
-
         stage('Construir y levantar contenedores') {
             steps {
                 bat 'docker-compose up -d --build'
