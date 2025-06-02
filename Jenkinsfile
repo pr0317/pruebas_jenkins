@@ -1,29 +1,33 @@
 pipeline {
-  agent any
+    agent any
 
-  stages {
-    stage('Clonar código') {
-      steps {
-        git branch: 'main', url: 'https://github.com/MariaFernandaFernandez/bloc-notas-app'
-      }
+    environment {
+        DOCKER_COMPOSE_FILE = 'docker-compose.yml'
     }
 
-    stage('Construir y levantar contenedores') {
-      steps {
-        sh 'docker-compose up -d --build'
-      }
-    }
+    stages {
+        stage('Clonar código') {
+            steps {
+                bat 'git clone https://github.com/MariaFernandaFernandez/nuevo_backend_bloc-de-notas.git .'
+            }
+        }
 
-    stage('Verificar backend corriendo') {
-      steps {
-        sh 'curl -X GET http://localhost:3000 || echo "El backend no responde"'
-      }
-    }
+        stage('Construir y levantar contenedores') {
+            steps {
+                bat 'docker-compose up -d --build'
+            }
+        }
 
-    stage('Detener contenedores') {
-      steps {
-        sh 'docker-compose down'
-      }
+        stage('Verificar backend corriendo') {
+            steps {
+                bat 'curl -X GET http://localhost:3000 || echo Backend no responde'
+            }
+        }
+
+        stage('Detener contenedores') {
+            steps {
+                bat 'docker-compose down'
+            }
+        }
     }
-  }
 }
