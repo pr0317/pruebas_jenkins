@@ -6,6 +6,13 @@ pipeline {
     }
 
     stages {
+
+        stage('Limpiar contenedor previo') {
+            steps {
+                bat 'docker rm -f bloc-notas-backend || echo "No se encontró contenedor previo"'
+            }
+        }
+
         stage('Construir y levantar contenedores') {
             steps {
                 bat 'docker-compose up -d --build'
@@ -15,8 +22,8 @@ pipeline {
         stage('Esperar backend') {
             steps {
                 bat '''
-                echo Esperando a que el backend se levante...
-                timeout /t 10
+                    timeout /t 5 >nul
+                    curl -X GET http://localhost:3000 || echo "Backend no responde"
                 '''
             }
         }
