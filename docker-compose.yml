@@ -1,15 +1,18 @@
-version: '3'
+version: '3.8'
+
 services:
   backend:
     build: ./backend
+    container_name: bloc-notas-backend
     ports:
-      - "4000:3000"  # Puerto externo 4000, interno 3000
-    volumes:
-      - ./backend/notas.json:/app/notas.json
+      - "3000:3000"
 
   frontend:
     image: nginx:alpine
+    container_name: bloc-notas-frontend
     ports:
-      - "8088:80"  # Puerto externo 8088, interno 80
+      - "8080:80"
     volumes:
-      - ./frontend:/usr/share/nginx/html
+      - ./frontend:/usr/share/nginx/html:ro
+    depends_on:
+      - backend
