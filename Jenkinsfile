@@ -6,10 +6,10 @@ pipeline {
     }
 
     stages {
-
-        stage('Limpiar contenedor previo') {
+        stage('Limpiar contenedores previos') {
             steps {
-                bat 'docker rm -f bloc-notas-backend || echo "No se encontró contenedor previo"'
+                bat 'docker rm -f bloc-notas-backend || echo "Backend no encontrado"'
+                bat 'docker rm -f bloc-notas-frontend || echo "Frontend no encontrado"'
             }
         }
 
@@ -21,10 +21,8 @@ pipeline {
 
         stage('Esperar backend') {
             steps {
-                bat '''
-                    timeout /t 5 >nul
-                    curl -X GET http://localhost:3000 || echo "Backend no responde"
-                '''
+                bat 'timeout /t 10'
+                bat 'curl -X GET http://localhost:3000 || echo Backend no responde'
             }
         }
 
