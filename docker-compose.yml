@@ -6,6 +6,10 @@ services:
     container_name: bloc-notas-backend
     ports:
       - "3000:3000"
+    working_dir: /usr/src/app
+    volumes:
+      - ./backend:/usr/src/app
+    command: npm start
 
   frontend:
     image: nginx:alpine
