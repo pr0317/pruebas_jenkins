@@ -12,9 +12,12 @@ pipeline {
             }
         }
 
-        stage('Verificar backend corriendo') {
+        stage('Esperar backend') {
             steps {
-                bat 'curl -X GET http://localhost:3000 || echo Backend no responde'
+                bat '''
+                echo Esperando a que el backend se levante...
+                timeout /t 10
+                '''
             }
         }
 
