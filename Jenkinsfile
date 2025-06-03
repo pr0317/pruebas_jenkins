@@ -22,7 +22,8 @@ pipeline {
             steps {
                 echo 'Esperando 10 segundos para que arranque el backend...'
                 bat 'ping 127.0.0.1 -n 10 > nul'
-                bat 'curl -X GET http://localhost:3000 || echo Backend no responde'
+                bat "curl -X GET http://host.docker.internal:3000 || echo Backend no responde"
+
             }
         }
 
