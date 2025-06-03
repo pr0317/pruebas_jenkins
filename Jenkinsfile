@@ -2,16 +2,10 @@ pipeline {
     agent any
 
     environment {
-        BACKEND_CONTAINER = 'bloc-notas-backend'
+        DOCKER_COMPOSE_FILE = 'docker-compose.yml'
     }
 
     stages {
-        stage('Declarative: Checkout SCM') {
-            steps {
-                checkout scm
-            }
-        }
-
         stage('Limpiar contenedor previo') {
             steps {
                 bat 'docker rm -f bloc-notas-backend || echo "No se encontró contenedor previo"'
@@ -27,20 +21,15 @@ pipeline {
         stage('Esperar backend') {
             steps {
                 echo 'Esperando 10 segundos para que arranque el backend...'
-                bat 'timeout /t 10 > nul'
-                bat 'docker exec bloc-notas-backend curl -s http://localhost:3000 || echo Backend no responde'
+                bat 'ping 127.0.0.1 -n 10 > nul'
+                bat 'curl -X GET http://localhost:3000 || echo Backend no responde'
             }
         }
 
         stage('Detener contenedor') {
-            when {
-                expression { currentBuild.result == null || currentBuild.result == 'SUCCESS' }
-            }
             steps {
-                bat 'docker stop bloc-notas-backend'
+                bat 'docker rm -f bloc-notas-backend || echo "No se pudo detener (¿ya está detenido?)"'
             }
         }
     }
 }
-// Cambio de prueba para confirmar subida a GitHub
-
