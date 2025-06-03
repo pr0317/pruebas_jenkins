@@ -6,14 +6,13 @@ pipeline {
     }
 
     stages {
-        stage('Limpiar contenedores previos') {
+        stage('Limpiar contenedor previo') {
             steps {
-                bat 'docker rm -f bloc-notas-backend || echo "Backend no encontrado"'
-                bat 'docker rm -f bloc-notas-frontend || echo "Frontend no encontrado"'
+                bat 'docker rm -f bloc-notas-backend || echo "No se encontró contenedor previo"'
             }
         }
 
-        stage('Construir y levantar contenedores') {
+        stage('Construir y levantar contenedor') {
             steps {
                 bat 'docker-compose up -d --build'
             }
@@ -26,7 +25,7 @@ pipeline {
             }
         }
 
-        stage('Detener contenedores') {
+        stage('Detener contenedor') {
             steps {
                 bat 'docker-compose down'
             }
