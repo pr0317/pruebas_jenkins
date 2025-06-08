@@ -1,10 +1,29 @@
-# Bloc de Notas con Docker
+# nuevo_backend_bloc-de-notas
 
-Aplicación web tipo bloc de notas con frontend (HTML/CSS/JS) y backend en Node.js, contenida con Docker.
+Este repositorio contiene el backend de una aplicación tipo bloc de notas. Está desarrollado en Node.js con Express, usando Docker y configurado para despliegue continuo con Jenkins.
 
-## Instrucciones
+## Características principales
 
-1. Clonar el repositorio:
-```bash
-git clone https://github.com/TU_USUARIO/bloc-notas-app.git
-cd bloc-notas-app
+- API REST para crear, editar, eliminar y listar notas.
+- Persistencia de datos con [especificar si es MongoDB, PostgreSQL, etc.].
+- Contenedores orquestados con Docker Compose.
+- Integración continua con Jenkins.
+- Arquitectura modular y escalable.
+
+---
+
+## Requisitos
+
+- [ ] Node.js >= 14.x
+- [ ] Docker y Docker Compose
+- [ ] Git
+
+---
+
+## Instalación local
+
+1. Clona el repositorio:
+
+   ```bash
+   git clone https://github.com/MariaFernandaFernandez/nuevo_backend_bloc-de-notas.git
+   cd nuevo_backend_bloc-de-notas
