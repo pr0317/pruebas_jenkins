@@ -37,15 +37,15 @@ pipeline {
     stage('Ejecutar pruebas') {
       steps {
         withCredentials([string(credentialsId: 'SUDO_PASS', variable: 'PASS')]) {
-          sh '''
+          sh '''#!/bin/bash
+            set -e
             cd backend
-            echo "$PASS" | sudo -S npm install
-            echo "$PASS" | sudo -S npm test
+            echo "$PASS" | tr -d '\\r' | sudo -S npm install
+            echo "$PASS" | tr -d '\\r' | sudo -S npm test
           '''
         }
       }
     }
-
   }
 
   post {
