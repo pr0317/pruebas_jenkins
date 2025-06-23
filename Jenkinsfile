@@ -36,13 +36,16 @@ pipeline {
 
     stage('Ejecutar pruebas') {
       steps {
-        sh '''
-          cd backend
-          echo 1234567890 | sudo -S npm install
-          echo 1234567890 | sudo -S npm test
-        '''
+        withCredentials([string(credentialsId: '1234567890', variable: 'PASS')]) {
+          sh '''
+            cd backend
+            echo "$PASS" | sudo -S npm install
+            echo "$PASS" | sudo -S npm test
+          '''
+        }
       }
     }
+
   }
 
   post {
