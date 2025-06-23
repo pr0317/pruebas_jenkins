@@ -38,11 +38,12 @@ pipeline {
       steps {
         sh '''
           cd backend
-          npm install
-          npm test
+          sudo npm install
+          sudo npm test
         '''
       }
     }
+
   }
 
   post {
