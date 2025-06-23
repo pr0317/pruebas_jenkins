@@ -8,7 +8,7 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        git branch: 'main', url: 'https://github.com/MariaFernandaFernandez/nuevo_backend_bloc-de-notas.git'
+        git branch: 'main', url: 'https://github.com/pr0317/pruebas_jenkins.git'
       }
     }
 
