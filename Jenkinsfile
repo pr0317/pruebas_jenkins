@@ -34,18 +34,19 @@ pipeline {
       }
     }
 
-    stage('Ejecutar pruebas') {
-      steps {
-        withCredentials([string(credentialsId: 'SUDO_PASS', variable: 'PASS')]) {
-          sh '''#!/bin/bash
-            set -e
-            cd backend
-            echo "$PASS" | tr -d '\\r' | sudo -S npm install
-            echo "$PASS" | tr -d '\\r' | sudo -S npm test
-          '''
-        }
-      }
+stage('Ejecutar pruebas') {
+  steps {
+    withCredentials([string(credentialsId: 'SUDO_PASS', variable: 'PASS')]) {
+      sh '''#!/bin/bash
+        set -e
+        cd backend
+        echo "$PASS" | tr -d '\\r\\n' | sudo -S npm install
+        echo "$PASS" | tr -d '\\r\\n' | sudo -S npm test
+      '''
     }
+  }
+}
+
   }
 
   post {
